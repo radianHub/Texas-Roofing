@@ -142,7 +142,7 @@
         <inputAssignments>
             <field>Subject</field>
             <value>
-                <elementReference>Get_Work_Order.Subject</elementReference>
+                <elementReference>Address</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -298,7 +298,7 @@
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>Address</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
