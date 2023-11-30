@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bid</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Bid</compactLayoutAssignment>
+    <label>Bid</label>
+    <picklistValues>
+        <picklist>Bid_Type__c</picklist>
+        <values>
+            <fullName>ACM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bid - Re-Roof</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bid - Scope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Budget</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-Bid Site Walk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-Bid Virtual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scope Due</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scope Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Department</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>FSL__Event_Type__c</picklist>
+        <values>
+            <fullName>Resource Absence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Appointment</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Subject</picklist>
+        <values>
+            <fullName>Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send Letter%2FQuote</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>ACM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bid - Re-Roof</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bid - Scope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Budget</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-Bid - Site Walk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-Bid - Virtual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scope Due</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scope Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Department</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

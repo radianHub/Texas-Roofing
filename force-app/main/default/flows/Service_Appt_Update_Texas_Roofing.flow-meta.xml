@@ -1,11 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>56.0</apiVersion>
+    <assignments>
+        <name>Assign_Number_of_Existing_Events</name>
+        <label>Assign Number of Existing Events</label>
+        <locationX>1590</locationX>
+        <locationY>863</locationY>
+        <assignmentItems>
+            <assignToReference>NumberOfExistingEvents</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Existing_Events</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Has_Existing_Event_Records</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Number_of_Existing_Events2</name>
+        <label>Assign Number of Existing Events</label>
+        <locationX>1150</locationX>
+        <locationY>863</locationY>
+        <assignmentItems>
+            <assignToReference>NumberOfExistingEvents</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Existing_Events</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Has_Existing_Event_Records2</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Number_of_Existing_Events3</name>
+        <label>Assign Number of Existing Events</label>
+        <locationX>820</locationX>
+        <locationY>1679</locationY>
+        <assignmentItems>
+            <assignToReference>NumberOfExistingEvents</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Existing_Events</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Has_Existing_Event_Records3</targetReference>
+        </connector>
+    </assignments>
     <decisions>
         <name>Change_Start_End</name>
         <label>Change Start/End?</label>
-        <locationX>798</locationX>
-        <locationY>947</locationY>
+        <locationX>974</locationX>
+        <locationY>1463</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Yes</name>
@@ -53,6 +101,81 @@
                 </rightValue>
             </conditions>
             <connector>
+                <targetReference>Get_Existing_Events3</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Existing_Event_Records</name>
+        <label>Has Existing Event Records?</label>
+        <locationX>1590</locationX>
+        <locationY>971</locationY>
+        <defaultConnector>
+            <targetReference>Update_Work_Order_Status_to_New2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>NumberOfExistingEvents</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Delete_Event2</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Existing_Event_Records2</name>
+        <label>Has Existing Event Records?</label>
+        <locationX>1150</locationX>
+        <locationY>971</locationY>
+        <defaultConnector>
+            <targetReference>Update_Work_Order_Status_to_New</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>NumberOfExistingEvents</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Delete_Event</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Existing_Event_Records3</name>
+        <label>Has Existing Event Records?</label>
+        <locationX>820</locationX>
+        <locationY>1787</locationY>
+        <defaultConnector>
+            <targetReference>Create_Event2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes4</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>NumberOfExistingEvents</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
                 <targetReference>Delete_Event3</targetReference>
             </connector>
             <label>Yes</label>
@@ -61,8 +184,8 @@
     <decisions>
         <name>Status</name>
         <label>Status?</label>
-        <locationX>798</locationX>
-        <locationY>539</locationY>
+        <locationX>974</locationX>
+        <locationY>647</locationY>
         <defaultConnector>
             <targetReference>Change_Start_End</targetReference>
         </defaultConnector>
@@ -142,7 +265,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Delete_Event</targetReference>
+                <targetReference>Get_Existing_Events2</targetReference>
             </connector>
             <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
             <label>Cancelled</label>
@@ -158,13 +281,23 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Delete_Event2</targetReference>
+                <targetReference>Get_Existing_Events</targetReference>
             </connector>
             <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
             <label>None</label>
         </rules>
     </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>EventSubject</name>
+        <dataType>String</dataType>
+        <expression>&quot;WO# &quot; + {!Get_Work_Order.WorkOrderNumber} + &quot; - &quot; + {!Get_Work_Order.Subject}</expression>
+    </formulas>
+    <formulas>
+        <name>ServiceAppointmentAddress</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Street} + &apos;, &apos; + {!$Record.City} + &apos;, &apos; + {!$Record.State}</expression>
+    </formulas>
     <interviewLabel>Service Appt Update Texas Roofing {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Service Appt Update Texas Roofing</label>
     <processMetadataValues>
@@ -190,7 +323,7 @@
         <name>Create_Event</name>
         <label>Create Event</label>
         <locationX>50</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <connector>
             <targetReference>Update_Work_Order_Status_to_Scheduled</targetReference>
         </connector>
@@ -207,9 +340,21 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Location</field>
+            <value>
+                <elementReference>ServiceAppointmentAddress</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>OwnerId</field>
             <value>
                 <elementReference>Get_Assigned_Resource.ServiceResource.RelatedRecordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_Service_Appointment_Event_RT.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -221,7 +366,7 @@
         <inputAssignments>
             <field>Subject</field>
             <value>
-                <elementReference>Address</elementReference>
+                <elementReference>EventSubject</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -242,8 +387,8 @@
     <recordCreates>
         <name>Create_Event2</name>
         <label>Create Event</label>
-        <locationX>666</locationX>
-        <locationY>1163</locationY>
+        <locationX>820</locationX>
+        <locationY>2087</locationY>
         <inputAssignments>
             <field>EndDateTime</field>
             <value>
@@ -257,9 +402,21 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Location</field>
+            <value>
+                <elementReference>ServiceAppointmentAddress</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>OwnerId</field>
             <value>
                 <elementReference>Get_Assigned_Resource.ServiceResource.RelatedRecordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_Service_Appointment_Event_RT.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -271,7 +428,7 @@
         <inputAssignments>
             <field>Subject</field>
             <value>
-                <elementReference>Address</elementReference>
+                <elementReference>EventSubject</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -293,7 +450,7 @@
         <name>Delete_Event</name>
         <label>Delete Event</label>
         <locationX>1018</locationX>
-        <locationY>647</locationY>
+        <locationY>1079</locationY>
         <connector>
             <targetReference>Update_Work_Order_Status_to_New</targetReference>
         </connector>
@@ -317,33 +474,18 @@
     <recordDeletes>
         <name>Delete_Event2</name>
         <label>Delete Event</label>
-        <locationX>1282</locationX>
-        <locationY>647</locationY>
+        <locationX>1458</locationX>
+        <locationY>1079</locationY>
         <connector>
             <targetReference>Update_Work_Order_Status_to_New2</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>WhoId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.ContactId</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>WhatId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </filters>
-        <object>Event</object>
+        <inputReference>Get_Existing_Events</inputReference>
     </recordDeletes>
     <recordDeletes>
         <name>Delete_Event3</name>
         <label>Delete Event</label>
-        <locationX>666</locationX>
-        <locationY>1055</locationY>
+        <locationX>688</locationX>
+        <locationY>1895</locationY>
         <connector>
             <targetReference>Create_Event2</targetReference>
         </connector>
@@ -367,11 +509,11 @@
     <recordLookups>
         <name>Get_Assigned_Resource</name>
         <label>Get Assigned Resource</label>
-        <locationX>798</locationX>
+        <locationX>974</locationX>
         <locationY>431</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Status</targetReference>
+            <targetReference>Get_Service_Appointment_Event_RT</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -386,9 +528,114 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Existing_Events</name>
+        <label>Get Existing Events</label>
+        <locationX>1590</locationX>
+        <locationY>755</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Number_of_Existing_Events</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhoId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ContactId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Event</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Existing_Events2</name>
+        <label>Get Existing Events</label>
+        <locationX>1150</locationX>
+        <locationY>755</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Number_of_Existing_Events2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhoId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ContactId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Event</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Existing_Events3</name>
+        <label>Get Existing Events</label>
+        <locationX>820</locationX>
+        <locationY>1571</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Number_of_Existing_Events3</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhoId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ContactId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Event</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Service_Appointment_Event_RT</name>
+        <label>Get Service Appointment Event RT</label>
+        <locationX>974</locationX>
+        <locationY>539</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Service_Appointment</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Work_Order</name>
         <label>Get Work Order</label>
-        <locationX>798</locationX>
+        <locationX>974</locationX>
         <locationY>323</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -410,7 +657,7 @@
         <name>Update_Work_Order_Status_to_Completed</name>
         <label>Update Work Order Status to Completed</label>
         <locationX>754</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <connector>
             <targetReference>Change_Start_End</targetReference>
         </connector>
@@ -434,7 +681,7 @@
         <name>Update_Work_Order_Status_to_In_Progress</name>
         <label>Update Work Order Status to In Progress</label>
         <locationX>490</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <connector>
             <targetReference>Change_Start_End</targetReference>
         </connector>
@@ -457,8 +704,8 @@
     <recordUpdates>
         <name>Update_Work_Order_Status_to_New</name>
         <label>Update Work Order Status to New</label>
-        <locationX>1018</locationX>
-        <locationY>755</locationY>
+        <locationX>1150</locationX>
+        <locationY>1271</locationY>
         <connector>
             <targetReference>Change_Start_End</targetReference>
         </connector>
@@ -481,8 +728,8 @@
     <recordUpdates>
         <name>Update_Work_Order_Status_to_New2</name>
         <label>Update Work Order Status to New</label>
-        <locationX>1282</locationX>
-        <locationY>755</locationY>
+        <locationX>1590</locationX>
+        <locationY>1271</locationY>
         <connector>
             <targetReference>Change_Start_End</targetReference>
         </connector>
@@ -506,7 +753,7 @@
         <name>Update_Work_Order_Status_to_Scheduled</name>
         <label>Update Work Order Status to Scheduled</label>
         <locationX>50</locationX>
-        <locationY>755</locationY>
+        <locationY>863</locationY>
         <connector>
             <targetReference>Change_Start_End</targetReference>
         </connector>
@@ -528,7 +775,7 @@
     </recordUpdates>
     <sourceTemplate>ozbee__Service_Appointment_Update</sourceTemplate>
     <start>
-        <locationX>672</locationX>
+        <locationX>848</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Work_Order</targetReference>
@@ -543,4 +790,12 @@
         <isViewedAsPlainText>true</isViewedAsPlainText>
         <text>{!$Record.Street}, {!$Record.City}, {!$Record.State} {!$Record.PostalCode}</text>
     </textTemplates>
+    <variables>
+        <name>NumberOfExistingEvents</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
 </Flow>
